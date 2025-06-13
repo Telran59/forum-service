@@ -5,6 +5,7 @@ import errorHandler from "./middleware/error.middleware.js";
 import config from "./config/config.js";
 import userAccountRoutes from "./routes/userAccount.routes.js";
 import authentication from "./middleware/authentication.middleware.js";
+import {createAdmin} from "./config/initAdmin.js";
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.use(errorHandler);
 const connectDB = async () => {
     try {
         await mongoose.connect(config.mongodb.uri, config.mongodb.db);
+        await createAdmin();
         console.log('MongoDB connected successfully');
     } catch (err) {
         console.log('MongoDB connection error', err);
