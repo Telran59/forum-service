@@ -31,6 +31,19 @@ class Authorization {
             post.author.toLowerCase() === req.principal.username.toLowerCase() ? next() : res.status(403).send('Access denied');
         }
     }
+
+    isPostAuthorOrHasRole(postIdParam, role) {
+        return async (req, res, next) => {
+            const postId = req.params[postIdParam];
+            const post = await Post.findById(postId);
+            if (!post) {
+                throw new Error(`Post with id ${id} not found`);
+            }
+            const isOwner = post.author.toLowerCase() === req.principal.username.toLowerCase();
+            const hasRole = role && req.principal.roles.includes(role)
+            return isOwner || hasRole ? next() : res.status(403).send('Access denied');
+        }
+    }
 }
 
 export default new Authorization();
