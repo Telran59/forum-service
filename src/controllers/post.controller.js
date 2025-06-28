@@ -4,54 +4,54 @@ class PostController {
     async createPost(req, res, next) {
         try {
             const post = await postService.createPost(req.params.author, req.body);
-            res.status(201).json(post);
+            return res.status(201).json(post);
         } catch (err) {
-            next(err);
+            return next(err);
         }
     }
 
     async getPostById(req, res, next) {
         try {
             const post = await postService.getPostById(req.params.id);
-            res.status(200).json(post);
+            return res.status(200).json(post);
         } catch (err) {
-            next(err);
+            return next(err);
         }
     }
 
     async addLike(req, res, next) {
         try {
             await postService.addLike(req.params.id);
-            res.sendStatus(204);
+            return res.sendStatus(204);
         } catch (err) {
-            next(err);
+            return next(err);
         }
     }
 
     async getPostsByAuthor(req, res, next) {
         try {
             const posts = await postService.getPostsByAuthor(req.params.author);
-            res.json(posts);
+            return res.json(posts);
         } catch (err) {
-            next(err);
+            return next(err);
         }
     }
 
     async addComment(req, res, next) {
         try {
             const post = await postService.addComment(req.params.id, req.params.commenter, req.body.message);
-            res.json(post);
+            return res.json(post);
         } catch (err) {
-            next(err);
+            return next(err);
         }
     }
 
     async deletePost(req, res, next) {
         try {
             const post = await postService.deletePost(req.params.id);
-            res.json(post);
+            return res.json(post);
         } catch (err) {
-            next(err);
+            return next(err);
         }
     }
 
@@ -64,9 +64,9 @@ class PostController {
         }
         try {
             const posts = await postService.getPostsByTags(values);
-            res.json(posts);
+            return res.json(posts);
         } catch (err) {
-            next(err);
+            return next(err);
         }
     }
 
@@ -74,18 +74,18 @@ class PostController {
         try {
             const {dateFrom, dateTo} = req.query;
             const posts = await postService.getPostsByPeriod(dateFrom, dateTo);
-            res.json(posts);
+            return res.json(posts);
         } catch (err) {
-            next(err);
+            return next(err);
         }
     }
 
     async updatePost(req, res, next) {
         try {
             const post = await postService.updatePost(req.params.id, req.body);
-            res.json(post);
+            return res.json(post);
         } catch (err) {
-            next(err);
+            return next(err);
         }
     }
 }

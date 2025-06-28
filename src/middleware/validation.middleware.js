@@ -60,7 +60,7 @@ const validate = (schemaName, target = 'body') => {
             });
         }
 
-        next();
+        return next();
     }
 }
 

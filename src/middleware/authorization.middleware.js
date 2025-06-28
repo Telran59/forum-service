@@ -28,7 +28,7 @@ class Authorization {
             if (!post) {
                 throw new Error(`Post with id ${id} not found`);
             }
-            post.author.toLowerCase() === req.principal.username.toLowerCase() ? next() : res.status(403).send('Access denied');
+            return post.author.toLowerCase() === req.principal.username.toLowerCase() ? next() : res.status(403).send('Access denied');
         }
     }
 

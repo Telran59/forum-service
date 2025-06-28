@@ -4,32 +4,32 @@ class UserAccountController {
     async register(req, res, next) {
         try {
             const userAccount = await userAccountService.register(req.body);
-            res.status(201).json(userAccount);
+            return res.status(201).json(userAccount);
         } catch (err) {
-            next(err);
+            return next(err);
         }
     }
 
-    async login(req, res, next) {
+    async login(req, res) {
         const userAccount = await userAccountService.getUser(req.principal.username);
-        res.json(userAccount);
+        return res.json(userAccount);
     }
 
     async deleteUser(req, res, next) {
         try {
             const userAccount = await userAccountService.removeUser(req.params.user);
-            res.json(userAccount);
+            return res.json(userAccount);
         } catch (err) {
-            next(err);
+            return next(err);
         }
     }
 
     async updateUser(req, res, next) {
         try {
             const userAccount = await userAccountService.updateUser(req.params.user, req.body);
-            res.json(userAccount);
+            return res.json(userAccount);
         } catch (err) {
-            next(err);
+            return next(err);
         }
     }
 
@@ -37,9 +37,9 @@ class UserAccountController {
         const {user, role} = req.params;
         try {
             const userRoles = await userAccountService.changeRoles(user, role, true);
-            res.json(userRoles);
+            return res.json(userRoles);
         } catch (err) {
-            next(err);
+            return next(err);
         }
     }
 
@@ -47,23 +47,23 @@ class UserAccountController {
         const {user, role} = req.params;
         try {
             const userRoles = await userAccountService.changeRoles(user, role, false);
-            res.json(userRoles);
+            return res.json(userRoles);
         } catch (err) {
-            next(err);
+            return next(err);
         }
     }
 
-    async changePassword(req, res, next) {
+    async changePassword(req, res) {
         await userAccountService.changePassword(req.principal.username, req.headers['x-password']);
-        res.sendStatus(204);
+        return res.sendStatus(204);
     }
 
     async getUser(req, res, next) {
         try {
             const userAccount = await userAccountService.getUser(req.params.user);
-            res.json(userAccount);
+            return res.json(userAccount);
         } catch (err) {
-            next(err);
+            return next(err);
         }
     }
 }

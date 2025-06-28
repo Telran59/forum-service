@@ -16,7 +16,7 @@ const authentication = async (req, res, next) => {
         }
         req.principal = {username: login, roles: userAccount.roles};
     }
-    next();
+    return next();
 }
 
 export default authentication;
